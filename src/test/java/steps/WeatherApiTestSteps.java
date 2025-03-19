@@ -66,6 +66,7 @@ public class WeatherApiTestSteps {
     @Then("response status code should be {int}")
     public void response_status_code_should_be(Integer statusCode) {
         assertThat(response.getStatusCode())
+                .as("Unexpected response status code")
                 .isEqualTo(statusCode);
     }
 
@@ -73,6 +74,7 @@ public class WeatherApiTestSteps {
     @Then("response body should contain {string}")
     public void response_body_should_contain_city_name(String cityName) {
         assertThat(response.jsonPath().getString("location.name"))
+                .as("Unexpected city name")
                 .isEqualTo(cityName);
     }
 
@@ -80,6 +82,7 @@ public class WeatherApiTestSteps {
     @Then("response body should contain current weather information")
     public void response_body_should_contain_current_weather_information() {
         assertThatNoException()
+                .as("No current weather was found")
                 .isThrownBy(() -> response.jsonPath().getString("current"));
     }
 
@@ -87,6 +90,7 @@ public class WeatherApiTestSteps {
     @Then("response body should contain error code {int}")
     public void response_body_should_contain_error_code(Integer errorCode) {
         assertThat(response.jsonPath().getInt("error.code"))
+                .as("Unexpected error code")
                 .isEqualTo(errorCode);
     }
 
@@ -94,6 +98,7 @@ public class WeatherApiTestSteps {
     @Then("response body should contain error message")
     public void response_body_should_contain_error_message(String errorMessage) {
         assertThat(response.jsonPath().getString("error.message"))
+                .as("Unexpected error message")
                 .isEqualTo(errorMessage);
     }
 
