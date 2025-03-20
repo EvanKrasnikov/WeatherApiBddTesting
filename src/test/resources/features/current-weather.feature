@@ -1,10 +1,13 @@
-Feature:
+Feature: Get current weather
   As a user
-  I want to to obtain current weather of a given city
+  In order to obtain current weather of a given city
+  I want to send HTTP request to http://api.weatherapi.com/v1
 
   Background:
     Given user prepares request specification
 
+  @positive
+  @critical
   @allure.id:A-1
   Scenario Template: Successful scenario
     Given query parameters "<q>" and "<key>"
@@ -20,6 +23,7 @@ Feature:
       | Paris    | 9f2d78  | Paris     |
       | Tokyo    | f21f21  | Tokyo     |
 
+  @negative
   @allure.id:A-2
   Scenario Template: Query parameter 'key' is not provided
     Given query parameter q is "<q>"
@@ -34,6 +38,7 @@ Feature:
       | q      |
       | Samara |
 
+  @negative
   @allure.id:A-3
   Scenario Template: Query parameter 'q' is not provided
     Given query parameter key is "<key>"
@@ -48,6 +53,7 @@ Feature:
       | key     |
       | b41b7f  |
 
+  @negative
   @allure.id:A-4
   Scenario Template: No location found matching parameter 'q'
     Given query parameters "<q>" and "<key>"
@@ -62,6 +68,7 @@ Feature:
       | q         | key     |
       | Narnia123 | 77a701  |
 
+  @negative
   @allure.id:A-5
   Scenario Template: Json body passed in bulk request is invalid
     Given invalid json body
